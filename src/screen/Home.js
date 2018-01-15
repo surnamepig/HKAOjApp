@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Text, Image, ImageBackground, TouchableHighlight} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, Image, ImageBackground, TouchableHighlight, Alert} from 'react-native';
 
 import Notification from '../components/Notification';
 import Slide from '../components/Slide';
@@ -7,7 +7,7 @@ import LanguageSelect from "../components/LanguageSelect";
 import Footer from '../components/Footer';
 
 export default class HomeScreen extends Component {
-    static navigationOptions = (navigation) => ({
+    static navigationOptions = () => ({
         headerTitle: (<View style={styles.headerTitleView}>
             <Image style={styles.headerTitleImage} source={require('../assets/images/hklogo.png')}/>
             <Text style={styles.headerTitleText}>香港航空</Text>
@@ -16,6 +16,10 @@ export default class HomeScreen extends Component {
         headerRight: (<ImageBackground style={styles.headerRight}
                                        source={require('../assets/images/logoIco.png')}></ImageBackground>)
     });
+
+    menuBtnPress(navigationName) {
+        this.props.navigation.navigate(navigationName);
+    }
 
     render() {
         return (
@@ -30,7 +34,9 @@ export default class HomeScreen extends Component {
                                 <Text style={styles.btnText}>机票预定</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight style={styles.menuBtn}>
+                        <TouchableHighlight style={styles.menuBtn} onPress={() => {
+                            this.menuBtnPress('AnnualPassList')
+                        }}>
                             <View style={styles.btnView}>
                                 <Image style={styles.btnImage} source={require('../assets/images/npydImg.png')}></Image>
                                 <Text style={styles.btnText}>年票预订</Text>
@@ -96,8 +102,8 @@ const styles = StyleSheet.create({
     headerRight: {width: 80, height: 50},
     menuBg: {backgroundColor: '#ffffff'},
     btnMenuRow: {flexDirection: 'row', paddingHorizontal: 5},
-    menuBtn: {flex: 1},
-    btnView: {margin: 5, paddingVertical: 10, borderWidth: 1, borderColor: '#dcdcdc', borderRadius: 5},
+    menuBtn: {flex: 1, margin: 5, paddingVertical: 10, borderWidth: 1, borderColor: '#dcdcdc', borderRadius: 5},
+    btnView: {},
     btnImage: {width: 70, height: 70, resizeMode: 'contain', alignSelf: 'center'},
     btnText: {alignSelf: 'center', marginTop: 5, fontSize: 18, color: '#333333'}
 })
