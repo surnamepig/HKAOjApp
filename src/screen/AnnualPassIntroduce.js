@@ -5,12 +5,21 @@ import {
     Text,
     Image,
     Dimensions,
-    ScrollView
+    ScrollView,
+TouchableOpacity
 } from 'react-native';
-
+import HeaderToBack from '../components/HeaderToBack';
 const width = Dimensions.get('window').width;
 
 export default class AnnualPassIntroduceScreen extends Component {
+    static navigationOptions = (navigation) => ({
+        headerTitle: '年票介绍',
+        headerLeft: (<View><HeaderToBack {...navigation}/></View>),
+        headerRight: (
+            <TouchableOpacity style={styles.headerIntroduceBtn} activeOpacity={0.6} >
+                <Text style={[styles.fontColorRed, styles.fontSize18]}></Text></TouchableOpacity>)
+    });
+
     render() {
         return (
             <ScrollView style={styles.container}>

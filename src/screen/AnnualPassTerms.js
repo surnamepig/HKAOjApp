@@ -6,9 +6,10 @@ import {
     TouchableWithoutFeedback,
     TouchableHighlight,
     Image,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 } from 'react-native';
-
+import HeaderToBack from '../components/HeaderToBack';
 export default class AnnualPassTermsScreen extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,13 @@ export default class AnnualPassTermsScreen extends Component {
             textClass: 'buttonText'
         };
     }
-
+    static navigationOptions = (navigation) => ({
+        headerTitle: '条款规则',
+        headerLeft: (<View><HeaderToBack {...navigation}/></View>),
+        headerRight: (
+            <TouchableOpacity style={styles.headerIntroduceBtn} activeOpacity={0.6} >
+                <Text style={[styles.fontColorRed, styles.fontSize18]}></Text></TouchableOpacity>)
+    });
     render() {
         let imgSource = this.state.checkState == true
             ? require('../assets/images/checked.png') : require('../assets/images/check.png');
@@ -44,8 +51,7 @@ export default class AnnualPassTermsScreen extends Component {
                                                       this.setState({checkState: this.state.checkState == true ? false : true})
                                                   }}
                         >
-                            <Image style={styles.checkImg} resizeMode='contain'
-                                   source={imgSource}/>
+                            <Image style={styles.checkImg} resizeMode='contain' source={imgSource}/>
                         </TouchableWithoutFeedback>
                         <Text style={styles.checkText}>*我已阅读并同意以上条款规则 </Text>
                     </View>
@@ -73,7 +79,8 @@ export default class AnnualPassTermsScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
     content: {
         padding: 12
@@ -104,10 +111,11 @@ const styles = StyleSheet.create({
         paddingLeft: 5
     },
     buttonNav: {
-        height: 180,
+        height: 120,
         flexDirection: 'column',
-        justifyContent:'center',
-        alignItems:'center'
+        // justifyContent:'',
+        alignItems:'center',
+        marginTop:10
     },
     buttonTouch:{
         height: 50
